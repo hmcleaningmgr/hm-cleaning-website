@@ -422,7 +422,7 @@
         <h2>Request a Quote</h2>
         <p>Tell us a little about your property and what you need. This keeps the experience polished and low-friction while still collecting the right details for a fast follow-up.</p>
 
- <form
+<form
   id="quoteForm"
   name="hm-cleaning-quote"
   method="POST"
@@ -781,6 +781,41 @@ function updateEstimate(){
 });
 //test
 updateEstimate();
+
+const quoteForm = document.getElementById('quoteForm');
+const formMessage = document.getElementById('formMessage');
+
+quoteForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  formMessage.textContent = 'Submitting...';
+  formMessage.style.color = '#6b6b6b';
+
+  const formData = new FormData(quoteForm);
+  const payload = Object.fromEntries(formData.entries());
+
+  try {
+    const response = await fetch('/.netlify/functions/quote-request', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Something went wrong.');
+    }
+
+    formMessage.textContent = 'Thanks — your quote request was received. We’ll follow up shortly.';
+    formMessage.style.color = 'green';
+    quoteForm.reset();
+    updateEstimate();
+  } catch (error) {
+    formMessage.textContent = error.message || 'Submission failed. Please try again.';
+    formMessage.style.color = 'crimson';
+  }
+});
   </script>
 </body>
 </html>
