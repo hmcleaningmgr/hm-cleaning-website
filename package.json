@@ -1,0 +1,26 @@
+{
+  "name": "hm-cleaning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmcleaningmgr/hm-cleaning-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hmcleaningmgr/hm-cleaning-website/issues"
+  },
+  "homepage": "https://github.com/hmcleaningmgr/hm-cleaning-website#readme",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.100.1",
+    "resend": "^6.9.4",
+    "twilio": "^5.13.1"
+  }
+}

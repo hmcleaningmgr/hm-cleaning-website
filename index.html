@@ -422,97 +422,110 @@
         <h2>Request a Quote</h2>
         <p>Tell us a little about your property and what you need. This keeps the experience polished and low-friction while still collecting the right details for a fast follow-up.</p>
 
-        <form name="hm-cleaning-booking" method="POST" data-netlify="true">
-          <input type="hidden" name="form-name" value="hm-cleaning-booking" />
-          <div class="form-grid">
-            <div class="field">
-              <label for="name">Full Name</label>
-              <input id="name" name="name" type="text" placeholder="Your full name" required />
-            </div>
-            <div class="field">
-              <label for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" placeholder="(000) 000-0000" required />
-            </div>
-            <div class="field">
-              <label for="email">Email</label>
-              <input id="email" name="email" type="email" placeholder="you@example.com" required />
-            </div>
-            <div class="field">
-              <label for="zip">Service Area / ZIP Code</label>
-              <input id="zip" name="zip" type="text" placeholder="ZIP code" />
-            </div>
-            <div class="field">
-              <label for="service">Service Type</label>
-              <select id="service" name="service" required>
-                <option value="">Select service</option>
-                <option value="standard">Standard Residential Cleaning</option>
-                <option value="deep">Deep Cleaning</option>
-                <option value="turnover">Airbnb / Short-Term Rental Turnover</option>
-                <option value="move">Move In / Move Out</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="propertyType">Property Type</label>
-              <select id="propertyType" name="propertyType">
-                <option value="apartment">Apartment</option>
-                <option value="condo">Condo</option>
-                <option value="house">House</option>
-                <option value="airbnb">Airbnb / Short-Term Rental</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="bedrooms">Bedrooms</label>
-              <select id="bedrooms" name="bedrooms">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5+</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="bathrooms">Bathrooms</label>
-              <select id="bathrooms" name="bathrooms">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4+</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="frequency">Frequency</label>
-              <select id="frequency" name="frequency">
-                <option value="one-time">One Time</option>
-                <option value="weekly">Weekly</option>
-                <option value="biweekly">Biweekly</option>
-                <option value="monthly">Monthly</option>
-              </select>
-            </div>
-            <div class="field">
-              <label for="condition">Current Condition</label>
-              <select id="condition" name="condition">
-                <option value="normal">Well Maintained</option>
-                <option value="heavy">Needs Extra Attention</option>
-                <option value="vacant">Vacant / Empty</option>
-              </select>
-            </div>
-            <div class="field full">
-              <label for="details">Details</label>
-              <textarea id="details" name="details" placeholder="Square footage, pets, preferred day, access notes, or anything else helpful."></textarea>
-            </div>
-          </div>
+ <form
+  id="quoteForm"
+  name="hm-cleaning-quote"
+  method="POST"
+  data-netlify="true"
+  netlify-honeypot="bot-field"
+>
+  <input type="hidden" name="form-name" value="hm-cleaning-quote" />
 
-          <div class="estimate-box">
-            <div class="estimate-label">Luxury quote flow</div>
-            <div class="estimate-price" id="estimatePrice">Fast response. Tailored quote.</div>
-            <div class="estimate-note">We review your service type, property details, frequency, and notes to send back a polished quote as quickly as possible.</div>
-          </div>
+  <p style="display:none;">
+    <label>Don’t fill this out: <input name="bot-field" /></label>
+  </p>
 
-          <div class="card-actions">
-            <button type="submit" class="btn btn-gold">Submit Quote Request</button>
-            <a href="tel:6073497119" class="btn btn-dark">Call 607-349-7119</a>
-          </div>
-        </form>
+  <div class="form-grid">
+    <div class="field">
+      <label for="name">Full Name</label>
+      <input id="name" name="full_name" type="text" placeholder="Your full name" required />
+    </div>
+    <div class="field">
+      <label for="phone">Phone</label>
+      <input id="phone" name="phone" type="tel" placeholder="(000) 000-0000" required />
+    </div>
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" placeholder="you@example.com" required />
+    </div>
+    <div class="field">
+      <label for="zip">Service Area / ZIP Code</label>
+      <input id="zip" name="zip_code" type="text" placeholder="ZIP code" />
+    </div>
+    <div class="field">
+      <label for="service">Service Type</label>
+      <select id="service" name="service_type" required>
+        <option value="">Select service</option>
+        <option value="standard">Standard Residential Cleaning</option>
+        <option value="deep">Deep Cleaning</option>
+        <option value="turnover">Airbnb / Short-Term Rental Turnover</option>
+        <option value="move">Move In / Move Out</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="propertyType">Property Type</label>
+      <select id="propertyType" name="property_type">
+        <option value="apartment">Apartment</option>
+        <option value="condo">Condo</option>
+        <option value="house">House</option>
+        <option value="airbnb">Airbnb / Short-Term Rental</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="bedrooms">Bedrooms</label>
+      <select id="bedrooms" name="bedrooms">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5+</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="bathrooms">Bathrooms</label>
+      <select id="bathrooms" name="bathrooms">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4+</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="frequency">Frequency</label>
+      <select id="frequency" name="frequency">
+        <option value="one-time">One Time</option>
+        <option value="weekly">Weekly</option>
+        <option value="biweekly">Biweekly</option>
+        <option value="monthly">Monthly</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="condition">Current Condition</label>
+      <select id="condition" name="condition">
+        <option value="normal">Well Maintained</option>
+        <option value="heavy">Needs Extra Attention</option>
+        <option value="vacant">Vacant / Empty</option>
+      </select>
+    </div>
+    <div class="field full">
+      <label for="details">Details</label>
+      <textarea id="details" name="notes" placeholder="Square footage, pets, preferred day, access notes, or anything else helpful."></textarea>
+    </div>
+  </div>
+
+  <div class="estimate-box">
+    <div class="estimate-label">Luxury quote flow</div>
+    <div class="estimate-price" id="estimatePrice">Fast response. Tailored quote.</div>
+    <div class="estimate-note">We review your service type, property details, frequency, and notes to send back a polished quote as quickly as possible.</div>
+  </div>
+
+  <div class="card-actions">
+    <button type="submit" class="btn btn-gold">Submit Quote Request</button>
+    <a href="tel:6073497119" class="btn btn-dark">Call 607-349-7119</a>
+  </div>
+
+  <p id="formMessage" style="margin-top:14px; font-weight:700;"></p>
+</form>
       </div>
     </div>
   </section>
