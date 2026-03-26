@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>H&M Cleaning LLC | Book Online</title>
+  <meta name="description" content="Luxury residential cleaning services across South Florida. Request a quote for Airbnb turnovers, condos, apartments, and homes with H&M Cleaning LLC." />
+  <style>
+    :root{
+      --gold:#d4af37;
+      --gold-2:#f0d27c;
+      --black:#111111;
+      --charcoal:#1a1a1a;
+      --text:#232323;
+      --muted:#6b6b6b;
+      --line:#e9e9e9;
+      --bg:#faf9f7;
+      --white:#ffffff;
+      --card-shadow:0 12px 32px rgba(0,0,0,.08);
+      --radius:24px;
+      --max:1180px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--text);
+      background:var(--bg);
+    }
+    a{text-decoration:none;color:inherit}
+    img{display:block;max-width:100%}
+
+    .container{
+      width:min(calc(100% - 28px), var(--max));
+      margin:0 auto;
+    }
+
+    .btn{
+      border:none;
+      border-radius:999px;
+      padding:16px 28px;
+      font-size:16px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.2s ease;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+    }
+    .btn:hover{transform:translateY(-2px)}
+    .btn-gold{
+      background:linear-gradient(135deg,var(--gold),var(--gold-2));
+      color:#111;
+      box-shadow:0 10px 24px rgba(212,175,55,.22);
+    }
+    .btn-dark{
+      background:var(--charcoal);
+      color:#fff;
+    }
+    .btn-light{
+      background:rgba(255,255,255,.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.28);
+      backdrop-filter:blur(8px);
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:50;
+      background:rgba(250,249,247,.88);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(0,0,0,.06);
+    }
+    .nav{
+      min-height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      font-weight:800;
+      letter-spacing:.02em;
+    }
+    .brand-mark{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--gold),var(--gold-2));
+      display:grid;
+      place-items:center;
+      font-size:14px;
+      color:#111;
+      box-shadow:var(--card-shadow);
+    }
+    .nav-links{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      color:var(--muted);
+      font-weight:700;
+      font-size:14px;
+    }
+    .nav-links a:hover{color:var(--black)}
+    .nav-actions{display:flex;gap:12px;align-items:center}
+    .mobile-toggle{display:none;background:none;border:none;font-size:28px;cursor:pointer}
+
+    .hero{
+      position:relative;
+      min-height:92vh;
+      background:url('https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1974&auto=format&fit=crop') center/cover no-repeat;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      overflow:hidden;
+    }
+    .hero::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.52) 40%, rgba(0,0,0,.32) 100%);
+    }
+    .hero-inner{
+      position:relative;
+      z-index:2;
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:26px;
+      align-items:center;
+      width:100%;
+      padding:58px 0;
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.16);
+      font-size:12px;
+      font-weight:800;
+      letter-spacing:.05em;
+      text-transform:uppercase;
+    }
+    .hero h1{
+      font-size:clamp(44px,6vw,74px);
+      line-height:.96;
+      margin:16px 0 14px;
+      letter-spacing:-.03em;
+      max-width:760px;
+    }
+    .hero p{
+      max-width:650px;
+      color:rgba(255,255,255,.88);
+      font-size:19px;
+      line-height:1.6;
+      margin:0 0 26px;
+    }
+    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px}
+    .hero-trust{display:flex;gap:20px;flex-wrap:wrap;color:rgba(255,255,255,.82);font-weight:700;font-size:14px}
+
+    .booking-card{
+      background:rgba(255,255,255,.98);
+      color:var(--text);
+      border-radius:28px;
+      padding:28px;
+      box-shadow:0 22px 54px rgba(0,0,0,.20);
+    }
+    .booking-card h2{margin:0 0 8px;font-size:34px;line-height:1}
+    .booking-card p{margin:0 0 20px;color:var(--muted)}
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    .field{display:flex;flex-direction:column;gap:8px}
+    .field.full{grid-column:1/-1}
+    label{font-size:13px;font-weight:800;color:#222}
+    input,select,textarea{
+      width:100%;
+      padding:14px 15px;
+      border-radius:14px;
+      border:1px solid #dfdfdf;
+      background:#fff;
+      font:inherit;
+      color:var(--text);
+    }
+    textarea{resize:vertical;min-height:104px}
+    .estimate-box{
+      margin-top:16px;
+      padding:16px 18px;
+      border-radius:18px;
+      background:#f8f1dd;
+      border:1px solid #ecd489;
+    }
+    .estimate-label{font-size:13px;font-weight:800;color:#6f5a1c;text-transform:uppercase;letter-spacing:.04em}
+    .estimate-price{font-size:34px;font-weight:900;margin:5px 0;color:#111}
+    .estimate-note{font-size:13px;color:#6f6f6f}
+    .card-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+
+    .section{padding:82px 0}
+    .section-head{max-width:760px;margin:0 auto 38px;text-align:center}
+    .section-head h2{font-size:clamp(32px,4vw,50px);margin:0 0 12px;line-height:1.04}
+    .section-head p{margin:0;color:var(--muted);font-size:18px;line-height:1.65}
+
+    .steps{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+    .step{
+      background:var(--white);
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:26px;
+      box-shadow:var(--card-shadow);
+    }
+    .step-num{
+      width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--gold),var(--gold-2));
+      font-weight:900;color:#111;margin-bottom:14px;
+    }
+    .step h3{margin:0 0 10px;font-size:20px}
+    .step p{margin:0;color:var(--muted);line-height:1.6}
+
+    .service-grid, .review-grid, .faq-grid, .automation-grid, .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+    .card{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:26px;
+      box-shadow:var(--card-shadow);
+    }
+    .card h3{margin:0 0 10px;font-size:22px}
+    .card p{margin:0;color:var(--muted);line-height:1.65}
+    .tag{
+      display:inline-block;
+      margin-bottom:14px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:#f4f4f4;
+      color:#444;
+      font-weight:800;
+      font-size:12px;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+    }
+    .price-from{font-size:28px;font-weight:900;margin:16px 0 4px;color:#111}
+    .list{margin:14px 0 0;padding-left:18px;color:var(--muted);line-height:1.7}
+
+    .dark-band{
+      background:linear-gradient(180deg,#151515,#1f1f1f);
+      color:#fff;
+      border-radius:34px;
+      padding:40px;
+      box-shadow:0 18px 44px rgba(0,0,0,.14);
+    }
+    .dark-band-wrap{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:24px;
+      align-items:center;
+    }
+    .dark-band h2{margin:0 0 10px;font-size:42px;line-height:1.02}
+    .dark-band p{margin:0;color:rgba(255,255,255,.8);line-height:1.7;font-size:17px}
+    .dark-points{display:grid;gap:14px}
+    .dark-point{
+      padding:16px 18px;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:18px;
+      background:rgba(255,255,255,.04);
+      color:rgba(255,255,255,.9);
+      font-weight:700;
+    }
+
+    .faq-item{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:22px;
+      box-shadow:var(--card-shadow);
+    }
+    .faq-item h3{margin:0 0 10px;font-size:18px}
+    .faq-item p{margin:0;color:var(--muted);line-height:1.65}
+
+    .cta-panel{
+      text-align:center;
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:34px;
+      padding:48px 24px;
+      box-shadow:var(--card-shadow);
+    }
+    .cta-panel h2{margin:0 0 12px;font-size:46px;line-height:1.04}
+    .cta-panel p{max-width:760px;margin:0 auto 22px;color:var(--muted);font-size:18px;line-height:1.65}
+    .cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    .footer{
+      padding:34px 0 44px;
+      color:var(--muted);
+      border-top:1px solid rgba(0,0,0,.06);
+      background:#fff;
+    }
+    .footer-row{
+      display:flex;
+      justify-content:space-between;
+      gap:18px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+
+    .sticky-mobile{
+      display:none;
+      position:fixed;
+      left:0;right:0;bottom:0;
+      z-index:60;
+      background:rgba(255,255,255,.96);
+      backdrop-filter:blur(10px);
+      border-top:1px solid rgba(0,0,0,.08);
+      padding:12px;
+    }
+    .sticky-mobile-inner{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+    @media (max-width: 1080px){
+      .hero-inner, .dark-band-wrap{grid-template-columns:1fr}
+      .steps{grid-template-columns:repeat(2,1fr)}
+      .service-grid, .review-grid, .faq-grid, .automation-grid, .feature-grid{grid-template-columns:1fr 1fr}
+    }
+
+    @media (max-width: 820px){
+      .mobile-toggle{display:block}
+      .nav-links{
+        display:none;
+        position:absolute;
+        top:76px;
+        left:14px;
+        right:14px;
+        background:#fff;
+        color:var(--text);
+        border:1px solid var(--line);
+        border-radius:18px;
+        padding:16px;
+        flex-direction:column;
+        align-items:flex-start;
+        box-shadow:var(--card-shadow);
+      }
+      .nav-links.open{display:flex}
+      .nav-actions{display:none}
+      .section{padding:64px 0}
+      .cta-panel h2{font-size:36px}
+    }
+
+    @media (max-width: 640px){
+      .form-grid, .steps, .service-grid, .review-grid, .faq-grid, .automation-grid, .feature-grid{grid-template-columns:1fr}
+      .hero{min-height:auto}
+      .hero-inner{padding:40px 0 90px}
+      .booking-card{padding:22px}
+      .hero p{font-size:17px}
+      .dark-band{padding:28px}
+      .dark-band h2{font-size:34px}
+      .topbar .btn{padding:13px 18px}
+      .sticky-mobile{display:block}
+      body{padding-bottom:82px}
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container nav">
+      <a href="#top" class="brand">
+        <span class="brand-mark">H&amp;M</span>
+        <span>H&amp;M Cleaning LLC</span>
+      </a>
+
+      <nav class="nav-links" id="navLinks">
+        <a href="#book">Request Quote</a>
+        <a href="#services">Services</a>
+        <a href="#experience">Why H&amp;M</a>
+        <a href="#faq">FAQ</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <a href="tel:6073497119" class="btn btn-dark">Call 607-349-7119</a>
+        <a href="#book" class="btn btn-gold">Request a Quote</a>
+      </div>
+
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <section class="hero" id="top">
+    <div class="container hero-inner">
+      <div>
+        <span class="eyebrow">Luxury residential cleaning across South Florida</span>
+        <h1>High-end home cleaning with a smooth, simple quote experience.</h1>
+        <p>
+          H&amp;M Cleaning LLC specializes in upscale residential cleaning for Airbnbs, condos, apartments, and homes. Request a quote in minutes and let us handle the rest with polished, reliable service.
+        </p>
+        <div class="hero-actions">
+          <a href="#book" class="btn btn-gold">Request a Quote</a>
+          <a href="#services" class="btn btn-light">Explore Services</a>
+        </div>
+        <div class="hero-trust">
+          <span>✔ Airbnb turnovers</span>
+          <span>✔ Condos, apartments & homes</span>
+          <span>✔ Luxury feel, dependable execution</span>
+        </div>
+      </div>
+
+      <div class="booking-card" id="book">
+        <h2>Request a Quote</h2>
+        <p>Tell us a little about your property and what you need. This keeps the experience polished and low-friction while still collecting the right details for a fast follow-up.</p>
+
+        <form name="hm-cleaning-booking" method="POST" data-netlify="true">
+          <input type="hidden" name="form-name" value="hm-cleaning-booking" />
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Full Name</label>
+              <input id="name" name="name" type="text" placeholder="Your full name" required />
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="(000) 000-0000" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+            <div class="field">
+              <label for="zip">Service Area / ZIP Code</label>
+              <input id="zip" name="zip" type="text" placeholder="ZIP code" />
+            </div>
+            <div class="field">
+              <label for="service">Service Type</label>
+              <select id="service" name="service" required>
+                <option value="">Select service</option>
+                <option value="standard">Standard Residential Cleaning</option>
+                <option value="deep">Deep Cleaning</option>
+                <option value="turnover">Airbnb / Short-Term Rental Turnover</option>
+                <option value="move">Move In / Move Out</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="propertyType">Property Type</label>
+              <select id="propertyType" name="propertyType">
+                <option value="apartment">Apartment</option>
+                <option value="condo">Condo</option>
+                <option value="house">House</option>
+                <option value="airbnb">Airbnb / Short-Term Rental</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="bedrooms">Bedrooms</label>
+              <select id="bedrooms" name="bedrooms">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5+</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="bathrooms">Bathrooms</label>
+              <select id="bathrooms" name="bathrooms">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4+</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="frequency">Frequency</label>
+              <select id="frequency" name="frequency">
+                <option value="one-time">One Time</option>
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Biweekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="condition">Current Condition</label>
+              <select id="condition" name="condition">
+                <option value="normal">Well Maintained</option>
+                <option value="heavy">Needs Extra Attention</option>
+                <option value="vacant">Vacant / Empty</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="details">Details</label>
+              <textarea id="details" name="details" placeholder="Square footage, pets, preferred day, access notes, or anything else helpful."></textarea>
+            </div>
+          </div>
+
+          <div class="estimate-box">
+            <div class="estimate-label">Luxury quote flow</div>
+            <div class="estimate-price" id="estimatePrice">Fast response. Tailored quote.</div>
+            <div class="estimate-note">We review your service type, property details, frequency, and notes to send back a polished quote as quickly as possible.</div>
+          </div>
+
+          <div class="card-actions">
+            <button type="submit" class="btn btn-gold">Submit Quote Request</button>
+            <a href="tel:6073497119" class="btn btn-dark">Call 607-349-7119</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>How the quote experience works</h2>
+        <p>This site is designed to feel elevated and effortless: request a quote, get a fast response, confirm your cleaning, and make rebooking easy.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Send your request</h3>
+          <p>Tell us what type of residential property you have, how often you need service, and any important details.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Get a tailored quote</h3>
+          <p>We review the request and respond with a clear quote based on the property, service level, and schedule.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Confirm your service</h3>
+          <p>Once approved, the booking flow can move into confirmations, reminders, and future automation.</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Rebook with ease</h3>
+          <p>The long-term goal is a seamless recurring system for clients who want ongoing luxury residential cleaning.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services" style="background:#fff;">
+    <div class="container">
+      <div class="section-head">
+        <h2>Residential services built for clean presentation</h2>
+        <p>Focused, premium residential offerings make the brand feel more high-end and make future automation much easier.</p>
+      </div>
+
+      <div class="service-grid">
+        <div class="card">
+          <span class="tag">Signature Service</span>
+          <h3>Standard Residential Cleaning</h3>
+          <p>Ongoing upkeep for homes, condos, and apartments that need to stay fresh, polished, and guest-ready.</p>
+          <div class="price-from">Routine luxury care</div>
+          <ul class="list">
+            <li>Ideal for recurring clients</li>
+            <li>Designed for consistent presentation</li>
+            <li>Best fit for weekly, biweekly, or monthly service</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="tag">Detailed Service</span>
+          <h3>Deep Cleaning</h3>
+          <p>A more detailed top-to-bottom refresh for first-time clients or spaces that need extra attention.</p>
+          <div class="price-from">For elevated resets</div>
+          <ul class="list">
+            <li>Great before starting recurring service</li>
+            <li>Stronger detail and presentation focus</li>
+            <li>Useful for homes that need a full reset</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <span class="tag">Host-Ready</span>
+          <h3>Airbnb / Short-Term Rental Turnovers</h3>
+          <p>Fast, polished turnover service for hosts who need a property looking clean, reset, and ready for the next arrival.</p>
+          <div class="price-from">Built for presentation</div>
+          <ul class="list">
+            <li>Strong fit for Airbnb and short stays</li>
+            <li>Designed for clean handoffs and fast resets</li>
+            <li>Can expand later into automated turnover workflows</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="experience">
+    <div class="container">
+      <div class="dark-band">
+        <div class="dark-band-wrap">
+          <div>
+            <h2>Built to feel premium now and automatic later.</h2>
+            <p>
+              The front-end experience stays elegant and low-friction while the backend can later handle lead collection, follow-up, booking confirmations, reminders, and repeat-client workflows.
+            </p>
+          </div>
+          <div class="dark-points">
+            <div class="dark-point">Quote requests can flow straight into your backend</div>
+            <div class="dark-point">Email and SMS follow-up can be triggered automatically</div>
+            <div class="dark-point">Future booking confirmations can connect to Stripe and scheduling tools</div>
+            <div class="dark-point">Recurring residential clients can become the core of the business</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <h2>What makes this site automation-friendly</h2>
+        <p>The customer-facing side stays clean and high-end, while the structure behind it is ready for your automation stack later.</p>
+      </div>
+      <div class="feature-grid">
+        <div class="card">
+          <h3>Luxury quote intake</h3>
+          <p>The site avoids showing hard pricing everywhere, which helps the brand feel more premium while still collecting enough detail for fast quoting.</p>
+        </div>
+        <div class="card">
+          <h3>Residential-only positioning</h3>
+          <p>Narrowing the focus to Airbnbs, condos, apartments, and homes makes your messaging stronger and your workflow easier to automate.</p>
+        </div>
+        <div class="card">
+          <h3>Built for recurring clients</h3>
+          <p>The structure naturally supports repeat service, which is what will make the business feel far more automatic over time.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="background:#fff;">
+    <div class="container">
+      <div class="section-head">
+        <h2>Reviews that help close the job</h2>
+        <p>Use polished, believable reviews that reinforce trust, consistency, and the elevated feel of the brand.</p>
+      </div>
+      <div class="review-grid">
+        <div class="card">
+          <h3>Beautifully maintained</h3>
+          <p>“My condo looked spotless and felt professionally cared for. The whole experience felt polished from start to finish.”</p>
+        </div>
+        <div class="card">
+          <h3>Exactly the kind of service I wanted</h3>
+          <p>“Easy communication, dependable work, and a noticeably more high-end experience than I expected.”</p>
+        </div>
+        <div class="card">
+          <h3>Perfect for my Airbnb</h3>
+          <p>“The property looked fresh, reset, and guest-ready. I’d absolutely use H&amp;M again.”</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <div class="section-head">
+        <h2>Frequently asked questions</h2>
+        <p>These also help later if you decide to add a chatbot or AI assistant to answer common questions automatically.</p>
+      </div>
+      <div class="faq-grid">
+        <div class="faq-item">
+          <h3>How accurate is the estimate?</h3>
+          <p>It is a fast starting range based on the service type, size, frequency, and condition you select. Final pricing can be confirmed once the details are reviewed.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Do I need to be home?</h3>
+          <p>Not always. Many customers provide entry instructions in advance. You can tailor this answer later to match your policy.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Do you offer recurring service?</h3>
+          <p>Yes. Weekly, biweekly, and monthly service options are ideal for customers who want a lower-maintenance routine.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Do you clean offices and commercial spaces?</h3>
+          <p>H&amp;M is currently focused on residential cleaning, including Airbnbs, condos, apartments, and houses across South Florida.</p>
+        </div>
+        <div class="faq-item">
+          <h3>How do I pay?</h3>
+          <p>You can later connect this flow to Stripe so customers can approve deposits, pay invoices, or keep a card on file for repeat service.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Can I book online?</h3>
+          <p>Yes. Right now the site is designed around a request-quote flow, which is a better fit for a more premium residential brand.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="cta-panel">
+        <h2>Ready to make H&amp;M live?</h2>
+        <p>
+          This version is now positioned as a luxury residential brand for South Florida. The next step is connecting the quote form to your backend so every lead is captured and followed up with automatically.
+        </p>
+        <div class="cta-actions">
+          <a href="#book" class="btn btn-gold">Request a Quote</a>
+          <a href="tel:6073497119" class="btn btn-dark">Call 607-349-7119</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-row">
+      <div>© <span id="year"></span> H&amp;M Cleaning LLC</div>
+      <div>Luxury residential cleaning across South Florida.</div>
+    </div>
+  </footer>
+
+  <div class="sticky-mobile">
+    <div class="container sticky-mobile-inner">
+      <a href="#book" class="btn btn-gold">Request Quote</a>
+      <a href="tel:6073497119" class="btn btn-dark">Call Now</a>
+    </div>
+  </div>
+
+  <script>
+    const year = document.getElementById('year');
+    const mobileToggle = document.getElementById('mobileToggle');
+    const navLinks = document.getElementById('navLinks');
+
+    year.textContent = new Date().getFullYear();
+    mobileToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+    const service = document.getElementById('service');
+    const propertyType = document.getElementById('propertyType');
+    const bedrooms = document.getElementById('bedrooms');
+    const bathrooms = document.getElementById('bathrooms');
+    const frequency = document.getElementById('frequency');
+    const condition = document.getElementById('condition');
+    const estimatePrice = document.getElementById('estimatePrice');
+
+function updateEstimate(){
+  const serviceType = service.value;
+  const property = propertyType.value;
+  const freq = frequency.value;
+
+  let message = 'Fast response. Tailored quote.';
+
+  if(serviceType === 'turnover' || property === 'airbnb'){
+    message = 'Airbnb turnover request ready for review.';
+  } else if(serviceType === 'deep'){
+    message = 'Deep cleaning request ready for review.';
+  } else if(serviceType === 'move'){
+    message = 'Move in / move out request ready for review.';
+  } else if(freq === 'weekly' || freq === 'biweekly'){
+    message = 'Recurring cleaning request ready for review.';
+  }
+
+  estimatePrice.textContent = message;
+}
+
+[service, propertyType, bedrooms, bathrooms, frequency, condition].forEach(el => {
+  el.addEventListener('change', updateEstimate);
+});
+
+updateEstimate();
+  </script>
+</body>
+</html>
