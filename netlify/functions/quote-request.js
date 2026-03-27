@@ -1,19 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
-/* const { Resend } = require('resend');
-const twilio = require('twilio');
 
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-const twilioClient = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
-*/
 exports.handler = async (event) => {
   try {
     if (event.httpMethod !== 'POST') {
@@ -23,6 +9,27 @@ exports.handler = async (event) => {
         body: JSON.stringify({ error: 'Method not allowed' }),
       };
     }
+
+    if (!process.env.SUPABASE_URL) {
+      return {
+        statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'Missing SUPABASE_URL environment variable' }),
+      };
+    }
+
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      return {
+        statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'Missing SUPABASE_SERVICE_ROLE_KEY environment variable' }),
+      };
+    }
+
+    const supabase = createClient(
+      process.env.SUPABASE_URL,
+      process.env.SUPABASE_SERVICE_ROLE_KEY
+    );
 
     const body = JSON.parse(event.body || '{}');
 
@@ -70,60 +77,35 @@ exports.handler = async (event) => {
 
     if (leadError) {
       console.error('Supabase lead insert error:', leadError);
-      throw new Error('Failed to save lead');
+      return {
+        statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          error: `Failed to save lead: ${leadError.message}`,
+        }),
+      };
     }
 
-    const { error: quoteError } = await supabase.from('quotes').insert([
-      {
-        lead_id: insertedLead.id,
-        quote_status: 'pending',
-        quote_notes: null,
-      },
-    ]);
+    const { error: quoteError } = await supabase
+      .from('quotes')
+      .insert([
+        {
+          lead_id: insertedLead.id,
+          quote_status: 'pending',
+          quote_notes: null,
+        },
+      ]);
 
     if (quoteError) {
       console.error('Supabase quote insert error:', quoteError);
-      throw new Error('Failed to create quote record');
+      return {
+        statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          error: `Failed to create quote record: ${quoteError.message}`,
+        }),
+      };
     }
-
-    /* if (process.env.RESEND_API_KEY && process.env.FROM_EMAIL) {
-      try {
-        await resend.emails.send({
-          from: process.env.FROM_EMAIL,
-          to: insertedLead.email,
-          subject: 'We received your H&M Cleaning quote request',
-          html: `
-            <div style="font-family: Arial, Helvetica, sans-serif; color: #222; line-height: 1.6;">
-              <h2 style="margin-bottom: 8px;">Thanks for reaching out to H&M Cleaning LLC</h2>
-              <p>Hi ${insertedLead.full_name},</p>
-              <p>We received your quote request and will follow up shortly with next steps.</p>
-              <p><strong>Service requested:</strong> ${insertedLead.service_type}</p>
-              <p><strong>Phone:</strong> 607-349-7119</p>
-              <p>We appreciate the opportunity.</p>
-              <p>— H&M Cleaning LLC</p>
-            </div>
-          `,
-        });
-      } catch (emailError) {
-        console.error('Resend error:', emailError);
-      }
-    }
-
-    if (
-      process.env.TWILIO_ACCOUNT_SID &&
-      process.env.TWILIO_AUTH_TOKEN &&
-      process.env.TWILIO_FROM_NUMBER
-    ) {
-      try {
-        await twilioClient.messages.create({
-          from: process.env.TWILIO_FROM_NUMBER,
-          to: insertedLead.phone,
-          body: `Hi ${insertedLead.full_name}, this is H&M Cleaning LLC. We received your quote request and will follow up shortly. Call us anytime at 607-349-7119.`,
-        });
-      } catch (smsError) {
-        console.error('Twilio error:', smsError);
-      }
-    } */
 
     return {
       statusCode: 200,
@@ -141,7 +123,7 @@ exports.handler = async (event) => {
       statusCode: 500,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        error: 'Something went wrong while submitting your quote request.',
+        error: error.message || 'Something went wrong while submitting your quote request.',
       }),
     };
   }
