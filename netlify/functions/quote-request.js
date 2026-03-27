@@ -1,4 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
+const { Resend } = require('resend');
 
 exports.handler = async (event) => {
   try {
@@ -26,10 +27,28 @@ exports.handler = async (event) => {
       };
     }
 
+    if (!process.env.RESEND_API_KEY) {
+      return {
+        statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'Missing RESEND_API_KEY environment variable' }),
+      };
+    }
+
+    if (!process.env.FROM_EMAIL || !process.env.TO_EMAIL) {
+      return {
+        statusCode: 500,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ error: 'Missing FROM_EMAIL or TO_EMAIL environment variable' }),
+      };
+    }
+
     const supabase = createClient(
       process.env.SUPABASE_URL,
       process.env.SUPABASE_SERVICE_ROLE_KEY
     );
+
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
     const body = JSON.parse(event.body || '{}');
 
@@ -106,6 +125,28 @@ exports.handler = async (event) => {
         }),
       };
     }
+
+    await resend.emails.send({
+      from: process.env.FROM_EMAIL,
+      to: process.env.TO_EMAIL,
+      subject: `New H&M Cleaning Quote Request - ${insertedLead.full_name}`,
+      html: `
+        <div style="font-family: Arial, Helvetica, sans-serif; color: #222; line-height: 1.6;">
+          <h2>New Quote Request</h2>
+          <p><strong>Name:</strong> ${insertedLead.full_name || ''}</p>
+          <p><strong>Phone:</strong> ${insertedLead.phone || ''}</p>
+          <p><strong>Email:</strong> ${insertedLead.email || ''}</p>
+          <p><strong>ZIP Code:</strong> ${insertedLead.zip_code || ''}</p>
+          <p><strong>Service Type:</strong> ${insertedLead.service_type || ''}</p>
+          <p><strong>Property Type:</strong> ${insertedLead.property_type || ''}</p>
+          <p><strong>Bedrooms:</strong> ${insertedLead.bedrooms || ''}</p>
+          <p><strong>Bathrooms:</strong> ${insertedLead.bathrooms || ''}</p>
+          <p><strong>Frequency:</strong> ${insertedLead.frequency || ''}</p>
+          <p><strong>Condition:</strong> ${insertedLead.condition || ''}</p>
+          <p><strong>Notes:</strong> ${insertedLead.notes || ''}</p>
+        </div>
+      `,
+    });
 
     return {
       statusCode: 200,
