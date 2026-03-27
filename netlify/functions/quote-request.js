@@ -1,5 +1,5 @@
 const { createClient } = require('@supabase/supabase-js');
-const { Resend } = require('resend');
+/* const { Resend } = require('resend');
 const twilio = require('twilio');
 
 const supabase = createClient(
@@ -13,7 +13,7 @@ const twilioClient = twilio(
   process.env.TWILIO_ACCOUNT_SID,
   process.env.TWILIO_AUTH_TOKEN
 );
-
+*/
 exports.handler = async (event) => {
   try {
     if (event.httpMethod !== 'POST') {
@@ -86,7 +86,7 @@ exports.handler = async (event) => {
       throw new Error('Failed to create quote record');
     }
 
-    if (process.env.RESEND_API_KEY && process.env.FROM_EMAIL) {
+    /* if (process.env.RESEND_API_KEY && process.env.FROM_EMAIL) {
       try {
         await resend.emails.send({
           from: process.env.FROM_EMAIL,
@@ -123,7 +123,7 @@ exports.handler = async (event) => {
       } catch (smsError) {
         console.error('Twilio error:', smsError);
       }
-    }
+    } */
 
     return {
       statusCode: 200,
