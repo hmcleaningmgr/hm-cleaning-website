@@ -1,65 +1,152 @@
 <!DOCTYPE html>
+<!--
+  Declares this file as HTML5 so the browser knows how to render it properly.
+-->
 <html lang="en">
+  <!--
+    The root HTML element.
+    lang="en" tells browsers and screen readers the page is in English.
+  -->
+
 <head>
+  <!--
+    The <head> contains page settings, metadata, styles, and anything the browser needs
+    before it displays the visible page.
+  -->
+
   <meta charset="UTF-8" />
+  <!--
+    Tells the browser to use UTF-8 character encoding.
+    This helps special characters, symbols, and punctuation display correctly.
+  -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!--
+    Makes the page responsive on phones and tablets.
+    Without this, mobile devices may zoom the page out weirdly.
+  -->
+
   <title>H&M Cleaning LLC | Book Online</title>
-  <meta name="description" content="Luxury residential cleaning services across South Florida. Request a quote for Airbnb turnovers, condos, apartments, and homes with H&M Cleaning LLC." />
+  <!--
+    This is the title shown in the browser tab.
+  -->
+
+  <meta
+    name="description"
+    content="Luxury residential cleaning services across South Florida. Request a quote for Airbnb turnovers, condos, apartments, and homes with H&M Cleaning LLC."
+  />
+  <!--
+    This is the page description for Google/search engines and link previews.
+  -->
+
   <style>
+    /*
+      =========================
+      GLOBAL COLOR + SIZE TOKENS
+      =========================
+      :root is where we store reusable design variables.
+      This makes it easier to keep the site consistent and update colors later.
+    */
     :root{
-      --gold:#d4af37;
-      --gold-2:#f0d27c;
-      --black:#111111;
-      --charcoal:#1a1a1a;
-      --text:#232323;
-      --muted:#6b6b6b;
-      --line:#e9e9e9;
-      --bg:#faf9f7;
-      --white:#ffffff;
-      --card-shadow:0 12px 32px rgba(0,0,0,.08);
-      --radius:24px;
-      --max:1180px;
+      --gold:#d4af37;              /* Main gold accent color */
+      --gold-2:#f0d27c;            /* Lighter gold for gradients */
+      --black:#111111;             /* Near-black text/background color */
+      --charcoal:#1a1a1a;          /* Slightly softer dark color */
+      --text:#232323;              /* Main body text color */
+      --muted:#6b6b6b;             /* Softer paragraph/subtext color */
+      --line:#e9e9e9;              /* Border color */
+      --bg:#faf9f7;                /* Main site background color */
+      --white:#ffffff;             /* White */
+      --card-shadow:0 12px 32px rgba(0,0,0,.08); /* Standard shadow used on boxes/cards */
+      --radius:24px;               /* Standard round corner size */
+      --max:1180px;                /* Max width for content containers */
     }
 
+    /*
+      * applies to every single element on the page.
+      box-sizing:border-box makes width and height easier to control.
+    */
     *{box-sizing:border-box}
+
+    /*
+      Makes anchor jumps (like clicking #book) scroll smoothly instead of snapping.
+    */
     html{scroll-behavior:smooth}
+
+    /*
+      Base styles for the entire page body.
+    */
     body{
-      margin:0;
-      font-family:Arial, Helvetica, sans-serif;
-      color:var(--text);
-      background:var(--bg);
+      margin:0;                    /* Removes default browser margin */
+      font-family:Arial, Helvetica, sans-serif; /* Main font stack */
+      color:var(--text);           /* Default text color */
+      background:var(--bg);        /* Default page background */
     }
+
+    /*
+      Removes underlines from links and lets them inherit surrounding text color.
+    */
     a{text-decoration:none;color:inherit}
+
+    /*
+      Makes images responsive and removes the tiny inline gap browsers sometimes add.
+    */
     img{display:block;max-width:100%}
 
+    /*
+      Standard content wrapper.
+      This keeps the site from stretching too wide on large screens.
+    */
     .container{
       width:min(calc(100% - 28px), var(--max));
       margin:0 auto;
     }
 
+    /*
+      =========================
+      BUTTON STYLES
+      =========================
+      This is the base style for all buttons.
+    */
     .btn{
-      border:none;
-      border-radius:999px;
-      padding:16px 28px;
-      font-size:16px;
-      font-weight:700;
-      cursor:pointer;
-      transition:.2s ease;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:10px;
+      border:none;                 /* No border */
+      border-radius:999px;         /* Makes it pill-shaped */
+      padding:16px 28px;           /* Inner spacing */
+      font-size:16px;              /* Text size */
+      font-weight:700;             /* Bold text */
+      cursor:pointer;              /* Pointer cursor on hover */
+      transition:transform .2s ease, box-shadow .25s ease, opacity .2s ease;
+      display:inline-flex;         /* Makes text align nicely inside */
+      align-items:center;          /* Vertical center */
+      justify-content:center;      /* Horizontal center */
+      gap:10px;                    /* Space if button ever has icon + text */
     }
+
+    /*
+      Slight lift effect when hovering a button.
+    */
     .btn:hover{transform:translateY(-2px)}
+
+    /*
+      Gold primary button.
+    */
     .btn-gold{
       background:linear-gradient(135deg,var(--gold),var(--gold-2));
       color:#111;
       box-shadow:0 10px 24px rgba(212,175,55,.22);
     }
+
+    /*
+      Dark secondary button.
+    */
     .btn-dark{
       background:var(--charcoal);
       color:#fff;
     }
+
+    /*
+      Light transparent hero button.
+    */
     .btn-light{
       background:rgba(255,255,255,.14);
       color:#fff;
@@ -67,76 +154,179 @@
       backdrop-filter:blur(8px);
     }
 
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:50;
-      background:rgba(250,249,247,.88);
-      backdrop-filter:blur(12px);
-      border-bottom:1px solid rgba(0,0,0,.06);
+    /*
+      Stronger hover glow for gold button.
+    */
+    .btn-gold:hover{
+      box-shadow:0 16px 34px rgba(212,175,55,.28);
     }
-    .nav{
-      min-height:76px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-    }
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      font-weight:800;
-      letter-spacing:.02em;
-    }
-    .brand-mark{
-      width:42px;
-      height:42px;
-      border-radius:14px;
-      background:linear-gradient(135deg,var(--gold),var(--gold-2));
-      display:grid;
-      place-items:center;
-      font-size:14px;
-      color:#111;
-      box-shadow:var(--card-shadow);
-    }
-    .nav-links{
-      display:flex;
-      align-items:center;
-      gap:22px;
-      color:var(--muted);
-      font-weight:700;
-      font-size:14px;
-    }
-    .nav-links a:hover{color:var(--black)}
-    .nav-actions{display:flex;gap:12px;align-items:center}
-    .mobile-toggle{display:none;background:none;border:none;font-size:28px;cursor:pointer}
 
+    /*
+      Stronger hover shadow for dark and light buttons.
+    */
+    .btn-dark:hover,
+    .btn-light:hover{
+      box-shadow:0 14px 30px rgba(0,0,0,.16);
+    }
+
+    /*
+      =========================
+      MOBILE HAMBURGER BUTTON
+      =========================
+      This is the menu button in the top-right corner of the hero section.
+    */
+    .mobile-toggle{
+      display:block;
+      position:absolute;
+      top:20px;
+      right:20px;
+      z-index:100;                 /* Keeps it above the hero image */
+      background:rgba(255,255,255,.14);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.28);
+      backdrop-filter:blur(8px);
+      border-radius:12px;
+      padding:10px 14px;
+      font-size:28px;
+      cursor:pointer;
+      transition:transform .2s ease, background .2s ease, border-color .2s ease;
+    }
+
+    /*
+      Tiny hover polish for the hamburger.
+    */
+    .mobile-toggle:hover{
+      transform:translateY(-1px);
+      background:rgba(255,255,255,.2);
+    }
+
+    /*
+      Rotates the menu icon when menu is open.
+    */
+    .mobile-toggle.active{
+      transform:rotate(90deg);
+    }
+
+    /*
+      The nav container is hidden by default.
+    */
+    .nav-links{
+      display:none;
+    }
+
+    /*
+      Dropdown menu box that appears when hamburger is clicked.
+    */
+    .hero-menu{
+      position:absolute;
+      top:72px;
+      right:20px;
+      z-index:100;
+      background:#fff;
+      color:var(--text);
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:16px;
+      flex-direction:column;       /* Stack menu links vertically */
+      align-items:flex-start;
+      box-shadow:var(--card-shadow);
+      min-width:220px;
+      opacity:0;                   /* Hidden until open */
+      transform:translateY(-8px);  /* Slight lifted position before opening */
+      pointer-events:none;         /* Prevent clicks while hidden */
+      transition:opacity .2s ease, transform .2s ease;
+    }
+
+    /*
+      Each link inside the dropdown menu.
+    */
+    .hero-menu a{
+      padding:10px 0;
+      font-weight:700;
+      width:100%;
+    }
+
+    /*
+      The "open" class is added by JavaScript when menu is toggled.
+    */
+    .hero-menu.open{
+      display:flex;
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
+    }
+
+    /*
+      =========================
+      HERO SECTION
+      =========================
+      Large top section with background image and headline.
+    */
     .hero{
       position:relative;
-      min-height:92vh;
-      background:url('https://images.unsplash.com/photo-1527515637462-cff94eecc1ac?q=80&w=1974&auto=format&fit=crop') center/cover no-repeat;
+      min-height:92vh;             /* Almost full screen height */
+      background:url('images/hero.png') center/cover no-repeat;
       color:#fff;
       display:flex;
       align-items:center;
       overflow:hidden;
     }
+
+    /*
+      Dark overlay on top of the hero image to improve readability.
+    */
     .hero::before{
       content:'';
       position:absolute;
       inset:0;
       background:linear-gradient(90deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.52) 40%, rgba(0,0,0,.32) 100%);
     }
+
+    /*
+      Soft radial glow overlay for a more premium/luxury feel.
+    */
+    .hero::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:radial-gradient(circle at 50% 20%, rgba(255,255,255,.08), transparent 40%);
+      pointer-events:none;
+      z-index:1;
+      opacity:.7;
+      transition:transform .2s ease;
+    }
+
+    /*
+      Wrapper for the hero content.
+    */
     .hero-inner{
       position:relative;
-      z-index:2;
-      display:grid;
-      grid-template-columns:1.08fr .92fr;
-      gap:26px;
+      z-index:2;                   /* Keeps content above overlays */
+      display:flex;
+      justify-content:center;
       align-items:center;
       width:100%;
-      padding:58px 0;
+      padding:90px 0 80px;
+      text-align:center;
     }
+
+    /*
+      Main content column inside the hero.
+    */
+    .hero-content{
+      position:relative;
+      z-index:2;
+      max-width:900px;
+      margin:0 auto;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:20px;
+    }
+
+    /*
+      Small pill label style if used.
+    */
     .eyebrow{
       display:inline-block;
       padding:8px 14px;
@@ -148,101 +338,225 @@
       letter-spacing:.05em;
       text-transform:uppercase;
     }
+
+    /*
+      Big hero heading.
+    */
     .hero h1{
-      font-size:clamp(44px,6vw,74px);
-      line-height:.96;
-      margin:16px 0 14px;
+      font-size:clamp(38px, 6vw, 74px);
+      line-height:1.02;
+      margin:0;
       letter-spacing:-.03em;
-      max-width:760px;
+      max-width:900px;
     }
+
+    /*
+      Paragraph text inside hero.
+    */
     .hero p{
-      max-width:650px;
+      max-width:700px;
       color:rgba(255,255,255,.88);
-      font-size:19px;
-      line-height:1.6;
-      margin:0 0 26px;
+      font-size:clamp(16px, 2vw, 19px);
+      line-height:1.7;
+      margin:0;
     }
-    .hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px}
-    .hero-trust{display:flex;gap:20px;flex-wrap:wrap;color:rgba(255,255,255,.82);font-weight:700;font-size:14px}
 
-    .booking-card{
-      background:rgba(255,255,255,.98);
-      color:var(--text);
-      border-radius:28px;
-      padding:28px;
-      box-shadow:0 22px 54px rgba(0,0,0,.20);
-    }
-    .booking-card h2{margin:0 0 8px;font-size:34px;line-height:1}
-    .booking-card p{margin:0 0 20px;color:var(--muted)}
-    .form-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
+    /*
+      Wraps hero buttons.
+    */
+    .hero-actions{
+      display:flex;
       gap:14px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top:8px;
     }
-    .field{display:flex;flex-direction:column;gap:8px}
-    .field.full{grid-column:1/-1}
-    label{font-size:13px;font-weight:800;color:#222}
-    input,select,textarea{
-      width:100%;
-      padding:14px 15px;
-      border-radius:14px;
-      border:1px solid #dfdfdf;
-      background:#fff;
-      font:inherit;
-      color:var(--text);
-    }
-    textarea{resize:vertical;min-height:104px}
-    .estimate-box{
-      margin-top:16px;
-      padding:16px 18px;
-      border-radius:18px;
-      background:#f8f1dd;
-      border:1px solid #ecd489;
-    }
-    .estimate-label{font-size:13px;font-weight:800;color:#6f5a1c;text-transform:uppercase;letter-spacing:.04em}
-    .estimate-price{font-size:34px;font-weight:900;margin:5px 0;color:#111}
-    .estimate-note{font-size:13px;color:#6f6f6f}
-    .card-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
 
-    .section{padding:82px 0}
-    .section-head{max-width:760px;margin:0 auto 38px;text-align:center}
-    .section-head h2{font-size:clamp(32px,4vw,50px);margin:0 0 12px;line-height:1.04}
-    .section-head p{margin:0;color:var(--muted);font-size:18px;line-height:1.65}
+    /*
+      Small trust bullet row under hero buttons.
+    */
+    .hero-trust{
+      display:flex;
+      gap:18px;
+      flex-wrap:wrap;
+      justify-content:center;
+      color:rgba(255,255,255,.82);
+      font-weight:700;
+      font-size:14px;
+      margin-top:4px;
+    }
 
+    /*
+      =========================
+      SHARED SECTION SPACING
+      =========================
+      Gives each main section vertical breathing room.
+    */
+    .section{
+      padding:100px 0;
+    }
+
+    /*
+      Centered heading block used at the top of sections.
+    */
+    .section-head{
+      max-width:760px;
+      margin:0 auto 52px;
+      text-align:center;
+    }
+
+    /*
+      Section title style.
+    */
+    .section-head h2{
+      font-size:clamp(32px,4vw,50px);
+      margin:0 0 14px;
+      line-height:1.08;
+    }
+
+    /*
+      Section subtitle/paragraph style.
+    */
+    .section-head p{
+      margin:0;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.75;
+    }
+
+    /*
+      =========================
+      HOW IT WORKS GRID
+      =========================
+    */
     .steps{
+      position:relative;
+      z-index:2;
       display:grid;
       grid-template-columns:repeat(4,1fr);
-      gap:18px;
+      gap:24px;
     }
+
+    /*
+      Single step card.
+    */
     .step{
       background:var(--white);
       border:1px solid var(--line);
       border-radius:24px;
-      padding:26px;
+      padding:30px;
       box-shadow:var(--card-shadow);
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
     }
-    .step-num{
-      width:46px;height:46px;border-radius:50%;display:grid;place-items:center;
-      background:linear-gradient(135deg,var(--gold),var(--gold-2));
-      font-weight:900;color:#111;margin-bottom:14px;
-    }
-    .step h3{margin:0 0 10px;font-size:20px}
-    .step p{margin:0;color:var(--muted);line-height:1.6}
 
-    .service-grid, .review-grid, .faq-grid, .automation-grid, .feature-grid{
+    /*
+      Hover effect for step cards.
+    */
+    .step:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 36px rgba(0,0,0,.10);
+      border-color:#ddd;
+    }
+
+    /*
+      Number circle at top of each step.
+    */
+    .step-num{
+      width:46px;
+      height:46px;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:linear-gradient(135deg,var(--gold),var(--gold-2));
+      font-weight:900;
+      color:#111;
+      margin-bottom:14px;
+    }
+
+    /*
+      Step heading.
+    */
+    .step h3{
+      margin:0 0 12px;
+      font-size:20px;
+    }
+
+    /*
+      Step paragraph.
+    */
+    .step p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    /*
+      =========================
+      GRID SECTIONS
+      =========================
+      Shared grid layout for service/review/faq-like sections.
+    */
+    .service-grid,
+    .review-grid,
+    .faq-grid,
+    .automation-grid,
+    .feature-grid{
+      position:relative;
+      z-index:2;
       display:grid;
       grid-template-columns:repeat(3,1fr);
-      gap:18px;
+      gap:24px;
     }
+
+    /*
+      Adds extra space below service cards before quote form.
+    */
+    .service-grid{
+      margin-bottom:56px;
+    }
+
+    /*
+      General card style.
+    */
     .card{
       background:#fff;
       border:1px solid var(--line);
       border-radius:24px;
-      padding:26px;
+      padding:30px;
       box-shadow:var(--card-shadow);
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
     }
-    .card h3{margin:0 0 10px;font-size:22px}
-    .card p{margin:0;color:var(--muted);line-height:1.65}
+
+    /*
+      Hover lift for cards.
+    */
+    .card:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 36px rgba(0,0,0,.10);
+      border-color:#ddd;
+    }
+
+    /*
+      Card title.
+    */
+    .card h3{
+      margin:0 0 12px;
+      font-size:22px;
+      line-height:1.2;
+    }
+
+    /*
+      Card paragraph.
+    */
+    .card p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    /*
+      Small tag/pill label if used.
+    */
     .tag{
       display:inline-block;
       margin-bottom:14px;
@@ -255,9 +569,152 @@
       letter-spacing:.04em;
       text-transform:uppercase;
     }
-    .price-from{font-size:28px;font-weight:900;margin:16px 0 4px;color:#111}
-    .list{margin:14px 0 0;padding-left:18px;color:var(--muted);line-height:1.7}
 
+    /*
+      Larger feature text if used.
+    */
+    .price-from{
+      font-size:28px;
+      font-weight:900;
+      margin:16px 0 4px;
+      color:#111;
+    }
+
+    /*
+      Standard list style inside cards.
+    */
+    .list{
+      margin:18px 0 0;
+      padding-left:18px;
+      color:var(--muted);
+      line-height:1.8;
+    }
+
+    /*
+      =========================
+      QUOTE FORM CARD
+      =========================
+    */
+    .booking-card{
+      position:relative;
+      z-index:2;
+      margin-top:0;
+      background:rgba(255,255,255,.98);
+      color:var(--text);
+      border-radius:28px;
+      padding:36px;
+      box-shadow:0 22px 54px rgba(0,0,0,.20);
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+    }
+
+    /*
+      Slight hover polish for quote form box.
+    */
+    .booking-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 24px 56px rgba(0,0,0,.14);
+    }
+
+    /*
+      Quote form heading.
+    */
+    .booking-card h2{
+      margin:0 0 12px;
+      font-size:34px;
+      line-height:1.05;
+    }
+
+    /*
+      Quote form intro text.
+    */
+    .booking-card p{
+      margin:0 0 28px;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    /*
+      Two-column form grid on desktop.
+    */
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:16px;
+    }
+
+    /*
+      Single input wrapper.
+    */
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+
+    /*
+      Makes an element span full width of the form grid.
+    */
+    .field.full{
+      grid-column:1/-1;
+    }
+
+    /*
+      Form label style.
+    */
+    label{
+      font-size:13px;
+      font-weight:800;
+      color:#222;
+    }
+
+    /*
+      Shared style for inputs, dropdowns, and textareas.
+    */
+    input,select,textarea{
+      width:100%;
+      padding:14px 15px;
+      border-radius:14px;
+      border:1px solid #dfdfdf;
+      background:#fff;
+      font:inherit;
+      color:var(--text);
+      transition:border-color .2s ease, box-shadow .2s ease, transform .2s ease;
+    }
+
+    /*
+      Adds nicer focus state when user clicks into a form field.
+    */
+    input:focus,select:focus,textarea:focus{
+      outline:none;
+      border-color:rgba(212,175,55,.9);
+      box-shadow:0 0 0 4px rgba(212,175,55,.12);
+    }
+
+    /*
+      Makes textarea resizable vertically only.
+    */
+    textarea{
+      resize:vertical;
+      min-height:104px;
+    }
+
+    /*
+      Wrapper for the quote form buttons.
+    */
+    .card-actions{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+      margin-top:22px;
+      justify-content:center;
+    }
+
+    /*
+      =========================
+      DARK BAND SECTION
+      =========================
+      Not currently used, but kept for future use.
+    */
     .dark-band{
       background:linear-gradient(180deg,#151515,#1f1f1f);
       color:#fff;
@@ -265,15 +722,32 @@
       padding:40px;
       box-shadow:0 18px 44px rgba(0,0,0,.14);
     }
+
     .dark-band-wrap{
       display:grid;
       grid-template-columns:1.2fr .8fr;
       gap:24px;
       align-items:center;
     }
-    .dark-band h2{margin:0 0 10px;font-size:42px;line-height:1.02}
-    .dark-band p{margin:0;color:rgba(255,255,255,.8);line-height:1.7;font-size:17px}
-    .dark-points{display:grid;gap:14px}
+
+    .dark-band h2{
+      margin:0 0 10px;
+      font-size:42px;
+      line-height:1.02;
+    }
+
+    .dark-band p{
+      margin:0;
+      color:rgba(255,255,255,.8);
+      line-height:1.7;
+      font-size:17px;
+    }
+
+    .dark-points{
+      display:grid;
+      gap:14px;
+    }
+
     .dark-point{
       padding:16px 18px;
       border:1px solid rgba(255,255,255,.12);
@@ -283,34 +757,94 @@
       font-weight:700;
     }
 
+    /*
+      =========================
+      FAQ STYLE
+      =========================
+      Also not currently used in the visible HTML, but kept in case you add FAQ back.
+    */
     .faq-item{
       background:#fff;
       border:1px solid var(--line);
       border-radius:20px;
-      padding:22px;
+      padding:24px;
       box-shadow:var(--card-shadow);
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
     }
-    .faq-item h3{margin:0 0 10px;font-size:18px}
-    .faq-item p{margin:0;color:var(--muted);line-height:1.65}
 
+    .faq-item:hover{
+      transform:translateY(-4px);
+      box-shadow:0 18px 36px rgba(0,0,0,.10);
+      border-color:#ddd;
+    }
+
+    .faq-item h3{
+      margin:0 0 12px;
+      font-size:18px;
+    }
+
+    .faq-item p{
+      margin:0;
+      color:var(--muted);
+      line-height:1.75;
+    }
+
+    /*
+      =========================
+      CTA PANEL
+      =========================
+      Big call-to-action box near the bottom.
+    */
     .cta-panel{
+      position:relative;
+      z-index:2;
       text-align:center;
       background:#fff;
       border:1px solid var(--line);
       border-radius:34px;
-      padding:48px 24px;
+      padding:60px 28px;
       box-shadow:var(--card-shadow);
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
     }
-    .cta-panel h2{margin:0 0 12px;font-size:46px;line-height:1.04}
-    .cta-panel p{max-width:760px;margin:0 auto 22px;color:var(--muted);font-size:18px;line-height:1.65}
-    .cta-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
 
+    .cta-panel:hover{
+      transform:translateY(-2px);
+      box-shadow:0 24px 56px rgba(0,0,0,.14);
+    }
+
+    .cta-panel h2{
+      margin:0 0 16px;
+      font-size:46px;
+      line-height:1.08;
+    }
+
+    .cta-panel p{
+      max-width:760px;
+      margin:0 auto 28px;
+      color:var(--muted);
+      font-size:18px;
+      line-height:1.75;
+    }
+
+    .cta-actions{
+      display:flex;
+      gap:14px;
+      justify-content:center;
+      flex-wrap:wrap;
+    }
+
+    /*
+      =========================
+      FOOTER
+      =========================
+    */
     .footer{
       padding:34px 0 44px;
       color:var(--muted);
       border-top:1px solid rgba(0,0,0,.06);
       background:#fff;
     }
+
     .footer-row{
       display:flex;
       justify-content:space-between;
@@ -319,405 +853,544 @@
       flex-wrap:wrap;
     }
 
+    /*
+      =========================
+      STICKY MOBILE BAR
+      =========================
+      Bottom-fixed buttons on phones.
+    */
     .sticky-mobile{
       display:none;
       position:fixed;
-      left:0;right:0;bottom:0;
+      left:0;
+      right:0;
+      bottom:0;
       z-index:60;
       background:rgba(255,255,255,.96);
       backdrop-filter:blur(10px);
       border-top:1px solid rgba(0,0,0,.08);
       padding:12px;
     }
-    .sticky-mobile-inner{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 
+    .sticky-mobile-inner{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:10px;
+    }
+
+    /*
+      =========================
+      REVEAL ANIMATIONS
+      =========================
+      These are used with JavaScript so sections fade in as you scroll.
+    */
+    .reveal{
+      opacity:0;
+      transform:translateY(24px);
+      transition:opacity .7s ease, transform .7s ease;
+      will-change:opacity, transform;
+    }
+
+    .reveal.visible{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /*
+      Slightly different delays so cards don't all appear at once.
+    */
+    .reveal-delay-1{ transition-delay: .05s; }
+    .reveal-delay-2{ transition-delay: .12s; }
+    .reveal-delay-3{ transition-delay: .19s; }
+    .reveal-delay-4{ transition-delay: .26s; }
+
+    /*
+      =========================
+      FORM MESSAGE STYLES
+      =========================
+      These are applied by JavaScript after submit.
+    */
+    .form-success{
+      border:1px solid #cfe8d3;
+      background:#f4fbf5;
+      color:#2f6b39 !important;
+      padding:12px 14px;
+      border-radius:14px;
+    }
+
+    .form-error{
+      border:1px solid #f1c7c7;
+      background:#fff5f5;
+      color:#a33a3a !important;
+      padding:12px 14px;
+      border-radius:14px;
+    }
+
+    /*
+      =========================
+      TABLET BREAKPOINT
+      =========================
+      Adjusts layouts for medium screens.
+    */
     @media (max-width: 1080px){
-      .hero-inner, .dark-band-wrap{grid-template-columns:1fr}
-      .steps{grid-template-columns:repeat(2,1fr)}
-      .service-grid, .review-grid, .faq-grid, .automation-grid, .feature-grid{grid-template-columns:1fr 1fr}
-    }
-
-    @media (max-width: 820px){
-      .mobile-toggle{display:block}
-      .nav-links{
-        display:none;
-        position:absolute;
-        top:76px;
-        left:14px;
-        right:14px;
-        background:#fff;
-        color:var(--text);
-        border:1px solid var(--line);
-        border-radius:18px;
-        padding:16px;
-        flex-direction:column;
-        align-items:flex-start;
-        box-shadow:var(--card-shadow);
+      .steps{
+        grid-template-columns:repeat(2,1fr);
       }
-      .nav-links.open{display:flex}
-      .nav-actions{display:none}
-      .section{padding:64px 0}
-      .cta-panel h2{font-size:36px}
+
+      .service-grid,
+      .review-grid,
+      .faq-grid,
+      .automation-grid,
+      .feature-grid,
+      .dark-band-wrap{
+        grid-template-columns:1fr 1fr;
+      }
     }
 
+    /*
+      Smaller tablet / large phone adjustment.
+    */
+    @media (max-width: 820px){
+      .section{
+        padding:80px 0;
+      }
+
+      .section-head{
+        margin:0 auto 42px;
+      }
+
+      .cta-panel h2{
+        font-size:36px;
+      }
+
+      .hero-menu{
+        top:72px;
+        right:14px;
+        left:14px;
+        min-width:auto;
+      }
+    }
+
+    /*
+      =========================
+      MOBILE BREAKPOINT
+      =========================
+      Stacks most grids into one column and tightens spacing.
+    */
     @media (max-width: 640px){
-      .form-grid, .steps, .service-grid, .review-grid, .faq-grid, .automation-grid, .feature-grid{grid-template-columns:1fr}
-      .hero{min-height:auto}
-      .hero-inner{padding:40px 0 90px}
-      .booking-card{padding:22px}
-      .hero p{font-size:17px}
-      .dark-band{padding:28px}
-      .dark-band h2{font-size:34px}
-      .topbar .btn{padding:13px 18px}
-      .sticky-mobile{display:block}
-      body{padding-bottom:82px}
+      .form-grid,
+      .steps,
+      .service-grid,
+      .review-grid,
+      .faq-grid,
+      .automation-grid,
+      .feature-grid,
+      .dark-band-wrap{
+        grid-template-columns:1fr;
+      }
+
+      .section{
+        padding:72px 0;
+      }
+
+      .section-head{
+        margin:0 auto 36px;
+      }
+
+      .hero{
+        min-height:auto;
+        padding:110px 0 70px;
+      }
+
+      .hero-inner{
+        padding:0;
+      }
+
+      .hero-content{
+        max-width:100%;
+        gap:16px;
+      }
+
+      .hero h1{
+        font-size:clamp(32px, 9vw, 42px);
+        line-height:1.06;
+      }
+
+      .hero-actions{
+        flex-direction:column;
+        align-items:center;
+        width:100%;
+      }
+
+      .hero-actions .btn{
+        width:100%;
+        max-width:320px;
+      }
+
+      .hero-trust{
+        flex-direction:column;
+        gap:10px;
+        font-size:13px;
+      }
+
+      .booking-card{
+        padding:24px;
+      }
+
+      .card,
+      .step,
+      .faq-item{
+        padding:24px;
+      }
+
+      .card-actions{
+        flex-direction:column;
+        align-items:center;
+      }
+
+      .card-actions .btn{
+        width:100%;
+        max-width:320px;
+      }
+
+      .cta-panel{
+        padding:42px 22px;
+      }
+
+      .sticky-mobile{
+        display:block;
+      }
+
+      body{
+        padding-bottom:82px;
+      }
+    }
+
+    /*
+      If a user prefers reduced motion for accessibility, turn most animation off.
+    */
+    @media (prefers-reduced-motion: reduce){
+      .reveal,
+      .card,
+      .step,
+      .faq-item,
+      .booking-card,
+      .cta-panel,
+      .btn,
+      .mobile-toggle,
+      .hero::after,
+      input,
+      select,
+      textarea{
+        transition:none !important;
+        animation:none !important;
+        transform:none !important;
+      }
+
+      .reveal{
+        opacity:1 !important;
+      }
     }
   </style>
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="container nav">
-      <a href="#top" class="brand">
-        <span class="brand-mark">H&amp;M</span>
-        <span>H&amp;M Cleaning LLC</span>
-      </a>
-
-      <nav class="nav-links" id="navLinks">
-        <a href="#book">Request Quote</a>
-        <a href="#services">Services</a>
-        <a href="#experience">Why H&amp;M</a>
-        <a href="#faq">FAQ</a>
-        <a href="#contact">Contact</a>
-      </nav>
-
-      <div class="nav-actions">
-        <a href="tel:6073497119" class="btn btn-dark">Call 607-349-7119</a>
-        <a href="#book" class="btn btn-gold">Request a Quote</a>
-      </div>
-
-      <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle menu">☰</button>
-    </div>
-  </header>
-
+  <!--
+    HERO SECTION
+    This is the first section visitors see.
+  -->
   <section class="hero" id="top">
+    <!--
+      Hamburger menu button.
+      JavaScript opens/closes the dropdown menu when clicked.
+    -->
+    <button class="mobile-toggle hero-toggle" id="mobileToggle" aria-label="Toggle menu">☰</button>
+
+    <!--
+      Dropdown menu that appears when hamburger is clicked.
+      The "open" class is added/removed by JavaScript.
+    -->
+    <nav class="nav-links hero-menu" id="navLinks">
+      <a href="#book">Request Quote</a>
+      <a href="#services">Services</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <!--
+      Main hero content container.
+    -->
     <div class="container hero-inner">
-      <div>
-        <span class="eyebrow">Luxury residential cleaning across South Florida</span>
-        <h1>High-end home cleaning with a smooth, simple quote experience.</h1>
-        <p>
-          H&amp;M Cleaning LLC specializes in upscale residential cleaning for Airbnbs, condos, apartments, and homes. Request a quote in minutes and let us handle the rest with polished, reliable service.
-        </p>
+      <div class="hero-content reveal">
+        <h1>South Florida's Premier Residential Cleaning Service</h1>
+
+        <!--
+          Main call-to-action buttons in the hero.
+        -->
         <div class="hero-actions">
           <a href="#book" class="btn btn-gold">Request a Quote</a>
           <a href="#services" class="btn btn-light">Explore Services</a>
         </div>
+
+        <!--
+          Quick trust bullets.
+        -->
         <div class="hero-trust">
           <span>✔ Airbnb turnovers</span>
           <span>✔ Condos, apartments & homes</span>
           <span>✔ Luxury feel, dependable execution</span>
         </div>
       </div>
-
-      <div class="booking-card" id="book">
-        <h2>Request a Quote</h2>
-        <p>Tell us a little about your property and what you need. This keeps the experience polished and low-friction while still collecting the right details for a fast follow-up.</p>
-
-<form
-  id="quoteForm"
-  name="hm-cleaning-quote"
-  method="POST"
-  data-netlify="true"
-  netlify-honeypot="bot-field"
->
-  <input type="hidden" name="form-name" value="hm-cleaning-quote" />
-
-  <p style="display:none;">
-    <label>Don’t fill this out: <input name="bot-field" /></label>
-  </p>
-
-  <div class="form-grid">
-    <div class="field">
-      <label for="name">Full Name</label>
-      <input id="name" name="full_name" type="text" placeholder="Your full name" required />
-    </div>
-    <div class="field">
-      <label for="phone">Phone</label>
-      <input id="phone" name="phone" type="tel" placeholder="(000) 000-0000" required />
-    </div>
-    <div class="field">
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" placeholder="you@example.com" required />
-    </div>
-    <div class="field">
-      <label for="zip">Service Area / ZIP Code</label>
-      <input id="zip" name="zip_code" type="text" placeholder="ZIP code" />
-    </div>
-    <div class="field">
-      <label for="service">Service Type</label>
-      <select id="service" name="service_type" required>
-        <option value="">Select service</option>
-        <option value="standard">Standard Residential Cleaning</option>
-        <option value="deep">Deep Cleaning</option>
-        <option value="turnover">Airbnb / Short-Term Rental Turnover</option>
-        <option value="move">Move In / Move Out</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="propertyType">Property Type</label>
-      <select id="propertyType" name="property_type">
-        <option value="apartment">Apartment</option>
-        <option value="condo">Condo</option>
-        <option value="house">House</option>
-        <option value="airbnb">Airbnb / Short-Term Rental</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="bedrooms">Bedrooms</label>
-      <select id="bedrooms" name="bedrooms">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5+</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="bathrooms">Bathrooms</label>
-      <select id="bathrooms" name="bathrooms">
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4+</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="frequency">Frequency</label>
-      <select id="frequency" name="frequency">
-        <option value="one-time">One Time</option>
-        <option value="weekly">Weekly</option>
-        <option value="biweekly">Biweekly</option>
-        <option value="monthly">Monthly</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="condition">Current Condition</label>
-      <select id="condition" name="condition">
-        <option value="normal">Well Maintained</option>
-        <option value="heavy">Needs Extra Attention</option>
-        <option value="vacant">Vacant / Empty</option>
-      </select>
-    </div>
-    <div class="field full">
-      <label for="details">Details</label>
-      <textarea id="details" name="notes" placeholder="Square footage, pets, preferred day, access notes, or anything else helpful."></textarea>
-    </div>
-  </div>
-
-  <div class="estimate-box">
-    <div class="estimate-label">Luxury quote flow</div>
-    <div class="estimate-price" id="estimatePrice">Fast response. Tailored quote.</div>
-    <div class="estimate-note">We review your service type, property details, frequency, and notes to send back a polished quote as quickly as possible.</div>
-  </div>
-
-  <div class="card-actions">
-    <button type="submit" class="btn btn-gold">Submit Quote Request</button>
-    <a href="tel:6073497119" class="btn btn-dark">Call 607-349-7119</a>
-  </div>
-
-  <p id="formMessage" style="margin-top:14px; font-weight:700;"></p>
-</form>
-      </div>
     </div>
   </section>
 
+  <!--
+    HOW IT WORKS SECTION
+  -->
   <section class="section">
     <div class="container">
-      <div class="section-head">
-        <h2>How the quote experience works</h2>
-        <p>This site is designed to feel elevated and effortless: request a quote, get a fast response, confirm your cleaning, and make rebooking easy.</p>
+      <div class="section-head reveal">
+        <h2>How It Works</h2>
       </div>
 
       <div class="steps">
-        <div class="step">
+        <div class="step reveal reveal-delay-1">
           <div class="step-num">1</div>
-          <h3>Send your request</h3>
+          <h3>Fill out the form</h3>
           <p>Tell us what type of residential property you have, how often you need service, and any important details.</p>
         </div>
-        <div class="step">
+
+        <div class="step reveal reveal-delay-2">
           <div class="step-num">2</div>
           <h3>Get a tailored quote</h3>
           <p>We review the request and respond with a clear quote based on the property, service level, and schedule.</p>
         </div>
-        <div class="step">
+
+        <div class="step reveal reveal-delay-3">
           <div class="step-num">3</div>
-          <h3>Confirm your service</h3>
-          <p>Once approved, the booking flow can move into confirmations, reminders, and future automation.</p>
+          <h3>Book your clean</h3>
+          <p>Once approved, our cleaners will work diligently to deliver a spotless space.</p>
         </div>
-        <div class="step">
+
+        <div class="step reveal reveal-delay-4">
           <div class="step-num">4</div>
           <h3>Rebook with ease</h3>
-          <p>The long-term goal is a seamless recurring system for clients who want ongoing luxury residential cleaning.</p>
+          <p>We believe in long-term relationships by providing an ongoing luxury cleaning experience.</p>
         </div>
       </div>
     </div>
   </section>
 
+  <!--
+    SERVICES + QUOTE FORM SECTION
+  -->
   <section class="section" id="services" style="background:#fff;">
     <div class="container">
-      <div class="section-head">
-        <h2>Residential services built for clean presentation</h2>
-        <p>Focused, premium residential offerings make the brand feel more high-end and make future automation much easier.</p>
+      <div class="section-head reveal">
+        <h2>Our Premium Services</h2>
       </div>
 
+      <!--
+        Service cards grid.
+      -->
       <div class="service-grid">
-        <div class="card">
-          <span class="tag">Signature Service</span>
-          <h3>Standard Residential Cleaning</h3>
+        <div class="card reveal reveal-delay-1">
+          <h3>Standard Cleaning</h3>
           <p>Ongoing upkeep for homes, condos, and apartments that need to stay fresh, polished, and guest-ready.</p>
-          <div class="price-from">Routine luxury care</div>
-          <ul class="list">
-            <li>Ideal for recurring clients</li>
-            <li>Designed for consistent presentation</li>
-            <li>Best fit for weekly, biweekly, or monthly service</li>
-          </ul>
         </div>
 
-        <div class="card">
-          <span class="tag">Detailed Service</span>
+        <div class="card reveal reveal-delay-2">
           <h3>Deep Cleaning</h3>
           <p>A more detailed top-to-bottom refresh for first-time clients or spaces that need extra attention.</p>
-          <div class="price-from">For elevated resets</div>
-          <ul class="list">
-            <li>Great before starting recurring service</li>
-            <li>Stronger detail and presentation focus</li>
-            <li>Useful for homes that need a full reset</li>
-          </ul>
         </div>
 
-        <div class="card">
-          <span class="tag">Host-Ready</span>
+        <div class="card reveal reveal-delay-3">
+          <h3>Move-in / Move-out</h3>
+          <p>For tenants moving into or out of a property, ensuring a smooth transition with a thorough cleaning.</p>
+        </div>
+
+        <div class="card reveal reveal-delay-4">
           <h3>Airbnb / Short-Term Rental Turnovers</h3>
           <p>Fast, polished turnover service for hosts who need a property looking clean, reset, and ready for the next arrival.</p>
-          <div class="price-from">Built for presentation</div>
-          <ul class="list">
-            <li>Strong fit for Airbnb and short stays</li>
-            <li>Designed for clean handoffs and fast resets</li>
-            <li>Can expand later into automated turnover workflows</li>
-          </ul>
         </div>
       </div>
-    </div>
-  </section>
 
-  <section class="section" id="experience">
-    <div class="container">
-      <div class="dark-band">
-        <div class="dark-band-wrap">
-          <div>
-            <h2>Built to feel premium now and automatic later.</h2>
-            <p>
-              The front-end experience stays elegant and low-friction while the backend can later handle lead collection, follow-up, booking confirmations, reminders, and repeat-client workflows.
-            </p>
+      <!--
+        Quote request form card.
+      -->
+      <div class="booking-card reveal" id="book">
+        <h2>Request a Quote</h2>
+
+        <!--
+          Netlify form setup:
+          - id="quoteForm" lets JavaScript target the form
+          - name="hm-cleaning-quote" is the form name
+          - method="POST" says form data is being submitted
+          - data-netlify="true" lets Netlify detect the form
+          - netlify-honeypot="bot-field" is spam protection
+        -->
+        <form
+          id="quoteForm"
+          name="hm-cleaning-quote"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+        >
+          <!--
+            Hidden field so Netlify knows which form this is.
+          -->
+          <input type="hidden" name="form-name" value="hm-cleaning-quote" />
+
+          <!--
+            Hidden anti-spam field.
+            Humans won't fill this out, but bots might.
+          -->
+          <p style="display:none;">
+            <label>Don’t fill this out: <input name="bot-field" /></label>
+          </p>
+
+          <!--
+            Actual user-facing form fields.
+          -->
+          <div class="form-grid">
+            <div class="field">
+              <label for="name">Full Name</label>
+              <input id="name" name="full_name" type="text" placeholder="Your full name" required />
+            </div>
+
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" placeholder="(000) 000-0000" required />
+            </div>
+
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@example.com" required />
+            </div>
+
+            <div class="field">
+              <label for="zip">Service Area / ZIP Code</label>
+              <input id="zip" name="zip_code" type="text" placeholder="ZIP code" />
+            </div>
+
+            <div class="field">
+              <label for="service">Service Type</label>
+              <select id="service" name="service_type" required>
+                <option value="">Select service</option>
+                <option value="standard">Standard Residential Cleaning</option>
+                <option value="deep">Deep Cleaning</option>
+                <option value="turnover">Airbnb / Short-Term Rental Turnover</option>
+                <option value="move">Move In / Move Out</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="propertyType">Property Type</label>
+              <select id="propertyType" name="property_type">
+                <option value="apartment">Apartment</option>
+                <option value="condo">Condo</option>
+                <option value="house">House</option>
+                <option value="airbnb">Airbnb / Short-Term Rental</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="bedrooms">Bedrooms</label>
+              <select id="bedrooms" name="bedrooms">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5+</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="bathrooms">Bathrooms</label>
+              <select id="bathrooms" name="bathrooms">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4+</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="frequency">Frequency</label>
+              <select id="frequency" name="frequency">
+                <option value="one-time">One Time</option>
+                <option value="weekly">Weekly</option>
+                <option value="biweekly">Biweekly</option>
+                <option value="monthly">Monthly</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="condition">Current Condition</label>
+              <select id="condition" name="condition">
+                <option value="normal">Well Maintained</option>
+                <option value="heavy">Needs Extra Attention</option>
+                <option value="vacant">Vacant / Empty</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="details">Details</label>
+              <textarea id="details" name="notes" placeholder="Square footage, pets, preferred day, access notes, or anything else helpful."></textarea>
+            </div>
           </div>
-          <div class="dark-points">
-            <div class="dark-point">Quote requests can flow straight into your backend</div>
-            <div class="dark-point">Email and SMS follow-up can be triggered automatically</div>
-            <div class="dark-point">Future booking confirmations can connect to Stripe and scheduling tools</div>
-            <div class="dark-point">Recurring residential clients can become the core of the business</div>
+
+          <!--
+            Form buttons.
+          -->
+          <div class="card-actions">
+            <button type="submit" class="btn btn-gold">Submit Quote Request</button>
+            <a href="tel:6073497119" class="btn btn-dark">Call 607-349-7119</a>
           </div>
-        </div>
+
+          <!--
+            JavaScript writes success/error messages into this paragraph.
+          -->
+          <p id="formMessage" style="margin-top:14px; font-weight:700;"></p>
+        </form>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <!--
+    REVIEWS SECTION
+    Uses your Elfsight Google Reviews widget.
+  -->
+  <section class="section" id="reviews" style="background:#fff;">
     <div class="container">
-      <div class="section-head">
-        <h2>What makes this site automation-friendly</h2>
-        <p>The customer-facing side stays clean and high-end, while the structure behind it is ready for your automation stack later.</p>
+      <div class="section-head reveal">
+        <h2>What Our Clients Say</h2>
+        <p>Real testimonials from satisfied customers who trust H&M Cleaning.</p>
       </div>
-      <div class="feature-grid">
-        <div class="card">
-          <h3>Luxury quote intake</h3>
-          <p>The site avoids showing hard pricing everywhere, which helps the brand feel more premium while still collecting enough detail for fast quoting.</p>
-        </div>
-        <div class="card">
-          <h3>Residential-only positioning</h3>
-          <p>Narrowing the focus to Airbnbs, condos, apartments, and homes makes your messaging stronger and your workflow easier to automate.</p>
-        </div>
-        <div class="card">
-          <h3>Built for recurring clients</h3>
-          <p>The structure naturally supports repeat service, which is what will make the business feel far more automatic over time.</p>
-        </div>
+
+      <!--
+        Loads Elfsight's widget script.
+      -->
+      <script src="https://elfsightcdn.com/platform.js" async></script>
+
+      <div class="section-head reveal">
+        <!--
+          This div is where Elfsight injects your live Google Reviews widget.
+        -->
+        <div class="elfsight-app-4444df2e-2cbf-4214-8b66-221b00b4fb2d reveal" data-elfsight-app-lazy></div>
       </div>
     </div>
   </section>
 
-  <section class="section" style="background:#fff;">
-    <div class="container">
-      <div class="section-head">
-        <h2>Reviews that help close the job</h2>
-        <p>Use polished, believable reviews that reinforce trust, consistency, and the elevated feel of the brand.</p>
-      </div>
-      <div class="review-grid">
-        <div class="card">
-          <h3>Beautifully maintained</h3>
-          <p>“My condo looked spotless and felt professionally cared for. The whole experience felt polished from start to finish.”</p>
-        </div>
-        <div class="card">
-          <h3>Exactly the kind of service I wanted</h3>
-          <p>“Easy communication, dependable work, and a noticeably more high-end experience than I expected.”</p>
-        </div>
-        <div class="card">
-          <h3>Perfect for my Airbnb</h3>
-          <p>“The property looked fresh, reset, and guest-ready. I’d absolutely use H&amp;M again.”</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="faq">
-    <div class="container">
-      <div class="section-head">
-        <h2>Frequently asked questions</h2>
-        <p>These also help later if you decide to add a chatbot or AI assistant to answer common questions automatically.</p>
-      </div>
-      <div class="faq-grid">
-        <div class="faq-item">
-          <h3>How accurate is the estimate?</h3>
-          <p>It is a fast starting range based on the service type, size, frequency, and condition you select. Final pricing can be confirmed once the details are reviewed.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Do I need to be home?</h3>
-          <p>Not always. Many customers provide entry instructions in advance. You can tailor this answer later to match your policy.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Do you offer recurring service?</h3>
-          <p>Yes. Weekly, biweekly, and monthly service options are ideal for customers who want a lower-maintenance routine.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Do you clean offices and commercial spaces?</h3>
-          <p>H&amp;M is currently focused on residential cleaning, including Airbnbs, condos, apartments, and houses across South Florida.</p>
-        </div>
-        <div class="faq-item">
-          <h3>How do I pay?</h3>
-          <p>You can later connect this flow to Stripe so customers can approve deposits, pay invoices, or keep a card on file for repeat service.</p>
-        </div>
-        <div class="faq-item">
-          <h3>Can I book online?</h3>
-          <p>Yes. Right now the site is designed around a request-quote flow, which is a better fit for a more premium residential brand.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  <!--
+    FINAL CALL-TO-ACTION SECTION
+  -->
   <section class="section" id="contact">
     <div class="container">
-      <div class="cta-panel">
-        <h2>Ready to make H&amp;M live?</h2>
-        <p>
-          This version is now positioned as a luxury residential brand for South Florida. The next step is connecting the quote form to your backend so every lead is captured and followed up with automatically.
-        </p>
+      <div class="cta-panel reveal">
+        <h2>Ready to live in peace?</h2>
+        <p>Request a personalized quote today. Let us show you the peace of mind a good cleaning can bring.</p>
+
         <div class="cta-actions">
           <a href="#book" class="btn btn-gold">Request a Quote</a>
           <a href="tel:6073497119" class="btn btn-dark">Call 607-349-7119</a>
@@ -726,13 +1399,19 @@
     </div>
   </section>
 
+  <!--
+    FOOTER
+  -->
   <footer class="footer">
     <div class="container footer-row">
       <div>© <span id="year"></span> H&amp;M Cleaning LLC</div>
-      <div>Luxury residential cleaning across South Florida.</div>
+      <div>Premium cleaning services across South Florida.</div>
     </div>
   </footer>
 
+  <!--
+    Bottom sticky mobile buttons for quick action on phones.
+  -->
   <div class="sticky-mobile">
     <div class="container sticky-mobile-inner">
       <a href="#book" class="btn btn-gold">Request Quote</a>
@@ -741,81 +1420,184 @@
   </div>
 
   <script>
+    /*
+      =========================
+      BASIC PAGE SETUP
+      =========================
+      Grab elements from the page so JavaScript can work with them.
+    */
     const year = document.getElementById('year');
     const mobileToggle = document.getElementById('mobileToggle');
     const navLinks = document.getElementById('navLinks');
+    const navMenuLinks = navLinks.querySelectorAll('a');
+    const hero = document.querySelector('.hero');
 
+    /*
+      Put the current year into the footer automatically.
+    */
     year.textContent = new Date().getFullYear();
-    mobileToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
 
-    const service = document.getElementById('service');
-    const propertyType = document.getElementById('propertyType');
-    const bedrooms = document.getElementById('bedrooms');
-    const bathrooms = document.getElementById('bathrooms');
-    const frequency = document.getElementById('frequency');
-    const condition = document.getElementById('condition');
-    const estimatePrice = document.getElementById('estimatePrice');
-
-function updateEstimate(){
-  const serviceType = service.value;
-  const property = propertyType.value;
-  const freq = frequency.value;
-
-  let message = 'Fast response. Tailored quote.';
-
-  if(serviceType === 'turnover' || property === 'airbnb'){
-    message = 'Airbnb turnover request ready for review.';
-  } else if(serviceType === 'deep'){
-    message = 'Deep cleaning request ready for review.';
-  } else if(serviceType === 'move'){
-    message = 'Move in / move out request ready for review.';
-  } else if(freq === 'weekly' || freq === 'biweekly'){
-    message = 'Recurring cleaning request ready for review.';
-  }
-
-  estimatePrice.textContent = message;
-}
-
-[service, propertyType, bedrooms, bathrooms, frequency, condition].forEach(el => {
-  el.addEventListener('change', updateEstimate);
-});
-//test
-updateEstimate();
-
-const quoteForm = document.getElementById('quoteForm');
-const formMessage = document.getElementById('formMessage');
-
-quoteForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  formMessage.textContent = 'Submitting...';
-  formMessage.style.color = '#6b6b6b';
-
-  const formData = new FormData(quoteForm);
-  const payload = Object.fromEntries(formData.entries());
-
-  try {
-    const response = await fetch('/.netlify/functions/quote-request', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+    /*
+      =========================
+      MOBILE MENU LOGIC
+      =========================
+      Clicking the hamburger opens/closes the dropdown menu.
+      It also rotates the icon slightly.
+    */
+    mobileToggle.addEventListener('click', (e) => {
+      e.stopPropagation(); /* prevents click from immediately triggering outside-click close */
+      navLinks.classList.toggle('open');
+      mobileToggle.classList.toggle('active');
     });
 
-    const data = await response.json();
+    /*
+      If a menu link is clicked, close the mobile menu.
+    */
+    navMenuLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        mobileToggle.classList.remove('active');
+      });
+    });
 
-    if (!response.ok) {
-      throw new Error(data.error || 'Something went wrong.');
-    }
+    /*
+      If the user clicks anywhere outside the menu and the hamburger,
+      close the menu.
+    */
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
+        navLinks.classList.remove('open');
+        mobileToggle.classList.remove('active');
+      }
+    });
 
-    formMessage.textContent = 'Thanks — your quote request was received. We’ll follow up shortly.';
-    formMessage.style.color = 'green';
-    quoteForm.reset();
-    updateEstimate();
-  } catch (error) {
-    formMessage.textContent = error.message || 'Submission failed. Please try again.';
-    formMessage.style.color = 'crimson';
-  }
-});
+    /*
+      =========================
+      SUBTLE HERO PARALLAX
+      =========================
+      As the user scrolls, the hero background shifts slightly.
+      This gives the site a subtle luxury motion feel.
+    */
+    window.addEventListener('scroll', () => {
+      if (!hero || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const offset = window.scrollY * 0.18;
+      hero.style.backgroundPosition = `center calc(50% + ${offset}px)`;
+    });
+
+    /*
+      =========================
+      FORM SUBMISSION LOGIC
+      =========================
+      This handles submitting the quote form to your Netlify function.
+    */
+    const quoteForm = document.getElementById('quoteForm');
+    const formMessage = document.getElementById('formMessage');
+    const submitButton = quoteForm.querySelector('button[type="submit"]');
+
+    /*
+      When the form is submitted:
+      1. stop the normal browser form submit
+      2. show loading state
+      3. send data to your Netlify backend function
+      4. show success or error message
+    */
+    quoteForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      /*
+        Update button and message so user knows something is happening.
+      */
+      submitButton.disabled = true;
+      submitButton.style.opacity = '0.75';
+      submitButton.textContent = 'Submitting...';
+
+      formMessage.className = '';
+      formMessage.textContent = 'Submitting your request...';
+      formMessage.style.color = '#6b6b6b';
+
+      /*
+        Collect all form data into an object we can send to the backend.
+      */
+      const formData = new FormData(quoteForm);
+      const payload = Object.fromEntries(formData.entries());
+
+      try {
+        /*
+          Send the form data to your Netlify function.
+          This function then stores the info in Supabase and sends emails.
+        */
+        const response = await fetch('/.netlify/functions/quote-request', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        /*
+          Convert the response from JSON text into a JavaScript object.
+        */
+        const data = await response.json();
+
+        /*
+          If the backend says something failed, show that error.
+        */
+        if (!response.ok) {
+          throw new Error(data.error || 'Something went wrong.');
+        }
+
+        /*
+          Success state:
+          show success message, reset form, and gently scroll message into view.
+        */
+        formMessage.textContent = 'Thanks — your quote request was received. We’ll follow up shortly.';
+        formMessage.classList.add('form-success');
+        quoteForm.reset();
+
+        setTimeout(() => {
+          formMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 100);
+
+      } catch (error) {
+        /*
+          Error state:
+          show the message returned from the server if possible.
+        */
+        formMessage.textContent = error.message || 'Submission failed. Please try again.';
+        formMessage.classList.add('form-error');
+      } finally {
+        /*
+          Always restore the button after the request finishes.
+        */
+        submitButton.disabled = false;
+        submitButton.style.opacity = '1';
+        submitButton.textContent = 'Submit Quote Request';
+      }
+    });
+
+    /*
+      =========================
+      SCROLL REVEAL ANIMATION
+      =========================
+      This watches elements with the "reveal" class.
+      When they scroll into view, the "visible" class is added.
+      The CSS then fades/slides them in.
+    */
+    const revealItems = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target); /* only animate once */
+        }
+      });
+    }, {
+      threshold: 0.12 /* means about 12% of the element is visible before animating */
+    });
+
+    /*
+      Start watching every reveal element.
+    */
+    revealItems.forEach(item => revealObserver.observe(item));
   </script>
 </body>
 </html>
